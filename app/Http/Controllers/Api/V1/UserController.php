@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index()
@@ -38,4 +39,44 @@ class UserController extends Controller
         User::destroy($id);
         return response()->json(null, 204);
     }
+
+    public function register(Request $request)
+    {
+        print_r($request->all());
+        $validatedData = $request->validate([
+            'name' => 'required|max:55',
+            'email' => 'email|required|unique:users',
+            'password' => 'required|confirmed'
+        ]);
+
+        $validatedData['password'] = Hash::make($request['password']);
+
+        $user = User::create($validatedData);
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ], 201);
+    }
+
+    public function login(Request $request)
+    {
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response()->json([
+                'message' => 'Invalid login details'
+            ], 401);
+        }
+
+        $user = User::where('email', $request['email'])->firstOrFail();
+
+       $token = $user->createToken('auth_token')->plainTextToken;
+        // $token='sadasdad';
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
+    }
+
 }

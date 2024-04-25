@@ -28,4 +28,6 @@ Route::middleware('auth:api')->group(function () {
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function () {
     Route::resource('users', UserController::class);
     Route::resource('spots', SpotController::class);
+    Route::post('register', [UserController::class, 'register']);
+    Route::post('login', [UserController::class, 'login']);
 }); 
