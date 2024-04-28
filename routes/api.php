@@ -26,13 +26,11 @@ Route::middleware('auth:api')->group(function () {
 
 //api/v1/users
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function () {
-    Route::resource('users', UserController::class);
-    Route::resource('spots', SpotController::class);
     Route::post('register', [UserController::class, 'register']);
     Route::post('login', [UserController::class, 'login']);
-}); 
 
-// Route::group(['prefix' => 'v1'], function () {
-//     Route::post('register', [UserController::class, 'register']);
-//     // other v1 routes...
-// });
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::resource('users', UserController::class);
+        Route::resource('spots', SpotController::class);
+    });
+});
