@@ -31,3 +31,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::post('register', [UserController::class, 'register']);
     Route::post('login', [UserController::class, 'login']);
 }); 
+
+// Route::group(['prefix' => 'v1'], function () {
+//     Route::post('register', [UserController::class, 'register']);
+//     // other v1 routes...
+// });

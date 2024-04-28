@@ -40,42 +40,62 @@ class UserController extends Controller
         return response()->json(null, 204);
     }
 
-    public function register(Request $request)
+    // public function register(Request $request)
+    // {
+
+    //     $validatedData = $request->validate([
+    //         'name' => 'required|max:55',
+    //         'email' => 'email|required|unique:users',
+    //         'password' => 'required|confirmed'
+    //     ]);
+    //      return response()->json($validatedData);
+    //     $validatedData['password'] = Hash::make($request['password']);
+
+    //     $user = User::create($validatedData);
+
+    //     $token = $user->createToken('auth_token')->plainTextToken;
+
+    //     return response()->json([
+    //         'access_token' => $token,
+    //         'token_type' => 'Bearer',
+    //     ], 201);
+    // }
+    public function register(Request $request)    {
+              print_r($request->all());
+              $request['password'] = Hash::make($request['password']);
+                $user = User::create($request->all());
+                $token = $user->createToken('auth_token')->plainTextToken;
+                return response()->json([
+                    'access_token' => $token,
+                    'token_type' => 'Bearer',
+                ], 201);
+
+    }
+    public function login(Request $request)
     {
-        print_r($request->all());
-        $validatedData = $request->validate([
-            'name' => 'required|max:55',
-            'email' => 'email|required|unique:users',
-            'password' => 'required|confirmed'
-        ]);
+        // Attempt login with email and password
+        if (!Auth::attempt($request->only('username', 'password'))) {
+            return response()->json([
+                'message' => 'Invalid login details',
+            ], 401);
+        }
 
-        $validatedData['password'] = Hash::make($request['password']);
+        // Fetch user by email
+        $user = User::where('username', $request['username'])->first();
 
-        $user = User::create($validatedData);
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found',
+            ], 404);
+        }
 
+        // Create a new token for the user
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-        ], 201);
-    }
-
-    public function login(Request $request)
-    {
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json([
-                'message' => 'Invalid login details'
-            ], 401);
-        }
-
-        $user = User::where('email', $request['email'])->firstOrFail();
-
-       $token = $user->createToken('auth_token')->plainTextToken;
-        // $token='sadasdad';
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
+            'user_id' => $user->id,  // Add this line
         ]);
     }
 
