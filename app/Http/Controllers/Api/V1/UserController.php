@@ -39,7 +39,10 @@ class UserController extends Controller
         User::destroy($id);
         return response()->json(null, 204);
     }
-
+    public function spots(User $user)
+    {
+        return response()->json($user->spots);
+    }
     // public function register(Request $request)
     // {
 
