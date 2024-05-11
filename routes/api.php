@@ -33,5 +33,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::resource('users', UserController::class);
         Route::resource('spots', SpotController::class);
         Route::get('users/{user}/spots', [UserController::class, 'spots']);
+        Route::post('users/{user}/spots', [UserController::class, 'storeSpot']);
     });
 });

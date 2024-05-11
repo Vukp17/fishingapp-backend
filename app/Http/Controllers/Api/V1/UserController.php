@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+
 class UserController extends Controller
 {
     public function index()
@@ -43,6 +44,37 @@ class UserController extends Controller
     {
         return response()->json($user->spots);
     }
+    public function storeSpot(Request $request, User $user)
+    {
+        // $request->validate([
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     // validate other input fields...
+        // ]);
+    
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $imagePath = $image->storeAs('images', $imageName, 'public');
+    
+            $spotData = $request->all();
+            $spotData['image_id'] = '/storage/' . $imagePath;
+            
+            $newSpotData = [
+                'name' => $request->name,
+                'description' => $request->description,
+                'image_id' => $request->image_id,
+                'user_id' => $request->user_id,
+                'updated_at' => '2021-09-01 00:00:00',
+                'created_at' => '2021-09-01 00:00:00',
+            ];
+        
+            $spot = $user->spots()->create($newSpotData);
+    
+            return response()->json($spot, 201);
+        } else {
+            return response()->json(['error' => 'No image uploaded'], 400);
+        }
+    }
     // public function register(Request $request)
     // {
 
@@ -63,16 +95,18 @@ class UserController extends Controller
     //         'token_type' => 'Bearer',
     //     ], 201);
     // }
-    public function register(Request $request)    {
-              print_r($request->all());
-              $request['password'] = Hash::make($request['password']);
-                $user = User::create($request->all());
-                $token = $user->createToken('auth_token')->plainTextToken;
-                return response()->json([
-                    'access_token' => $token,
-                    'token_type' => 'Bearer',
-                ], 201);
+    public function register(Request $request)
+    {
+        $request['password'] = Hash::make($request['password']);
 
+        $user = User::create($request->all());
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+            return response()->json([
+                'access_token' => $token,
+                'user_id' => $user->id,  // Add this line
+                'token_type' => 'Bearer',
+            ], 201);
     }
     public function login(Request $request)
     {
@@ -83,7 +117,7 @@ class UserController extends Controller
             ], 401);
         }
 
-        // Fetch user by email
+        // Fetch user by username
         $user = User::where('username', $request['username'])->first();
 
         if (!$user) {
@@ -91,7 +125,7 @@ class UserController extends Controller
                 'message' => 'User not found',
             ], 404);
         }
-
+        
         // Create a new token for the user
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -101,5 +135,4 @@ class UserController extends Controller
             'user_id' => $user->id,  // Add this line
         ]);
     }
-
 }
