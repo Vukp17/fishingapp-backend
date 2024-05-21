@@ -158,5 +158,4 @@ public function getImage($filename)
 
     return $response;
 }
-?>
 }
