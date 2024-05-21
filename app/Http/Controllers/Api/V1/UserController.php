@@ -50,7 +50,7 @@ class UserController extends Controller
         //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         //     // validate other input fields...
         // ]);
-        var_dump($request->all());
+        // var_dump($request->all());
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -141,24 +141,22 @@ class UserController extends Controller
             'user_id' => $user->id,  // Add this line
         ]);
     }
-    // public function googleLogin(Request $request)
-    // {
-    //     $user = User::where('email', $request->email)->first();
 
-    //     if (!$user) {
-    //         $user = User::create([
-    //             'name' => $request->name,
-    //             'email' => $request->email,
-    //             'password' => Hash::make('password'),
-    //         ]);
-    //     }
+public function getImage($filename)
+{
+    $path = storage_path('app/public/images/' . $filename);
 
-    //     $token = $user->createToken('auth_token')->plainTextToken;
+    if (!File::exists($path)) {
+        abort(404);
+    }
 
-    //     return response()->json([
-    //         'access_token' => $token,
-    //         'token_type' => 'Bearer',
-    //         'user_id' => $user->id,  // Add this line
-    //     ]);
-    // }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+}
+?>
 }
