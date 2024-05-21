@@ -50,26 +50,32 @@ class UserController extends Controller
         //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         //     // validate other input fields...
         // ]);
-    
+        var_dump($request->all());
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = $image->storeAs('images', $imageName, 'public');
-    
+
             $spotData = $request->all();
             $spotData['image_id'] = '/storage/' . $imagePath;
-            
+            // $location = explode(',', $request->location);
+            // $lat = trim($location[0]);
+            // $lng = trim($location[1]);
             $newSpotData = [
-                'name' => $request->name,
+                'name' => $request->title,
                 'description' => $request->description,
-                'image_id' => $request->image_id,
+                'image_id' => $spotData['image_id'],
                 'user_id' => $request->user_id,
                 'updated_at' => '2021-09-01 00:00:00',
                 'created_at' => '2021-09-01 00:00:00',
+                'lng' => $request->location,
+                'lat' => $request->location,
             ];
-        
-            $spot = $user->spots()->create($newSpotData);
-    
+            try {
+                $spot = $user->spots()->create($newSpotData);
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 400);
+            }
             return response()->json($spot, 201);
         } else {
             return response()->json(['error' => 'No image uploaded'], 400);
@@ -102,11 +108,11 @@ class UserController extends Controller
         $user = User::create($request->all());
 
         $token = $user->createToken('auth_token')->plainTextToken;
-            return response()->json([
-                'access_token' => $token,
-                'user_id' => $user->id,  // Add this line
-                'token_type' => 'Bearer',
-            ], 201);
+        return response()->json([
+            'access_token' => $token,
+            'user_id' => $user->id,  // Add this line
+            'token_type' => 'Bearer',
+        ], 201);
     }
     public function login(Request $request)
     {
@@ -125,7 +131,7 @@ class UserController extends Controller
                 'message' => 'User not found',
             ], 404);
         }
-        
+
         // Create a new token for the user
         $token = $user->createToken('auth_token')->plainTextToken;
 

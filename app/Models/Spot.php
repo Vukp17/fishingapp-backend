@@ -9,6 +9,6 @@ class Spot extends Model
 {
     use HasFactory;
     protected $fillable = [
-     'image_id','user_id','title','description','latitude','longitude'
+     'image_id','user_id','title','description','lat','lng','created_at','updated_at','name'
     ];
 }
