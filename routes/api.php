@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 //contooller
 use App\Http\Controllers\Api\V1\SpotController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,7 @@ Route::middleware('auth:api')->group(function () {
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function () {
     Route::post('register', [UserController::class, 'register']);
     Route::post('login', [UserController::class, 'login']);
-
+    Route::post('google-login', [AuthController::class, 'googleLogin']);
     Route::middleware('auth:sanctum')->group(function () {
         Route::resource('users', UserController::class);
         Route::resource('spots', SpotController::class);

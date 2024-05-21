@@ -135,4 +135,24 @@ class UserController extends Controller
             'user_id' => $user->id,  // Add this line
         ]);
     }
+    // public function googleLogin(Request $request)
+    // {
+    //     $user = User::where('email', $request->email)->first();
+
+    //     if (!$user) {
+    //         $user = User::create([
+    //             'name' => $request->name,
+    //             'email' => $request->email,
+    //             'password' => Hash::make('password'),
+    //         ]);
+    //     }
+
+    //     $token = $user->createToken('auth_token')->plainTextToken;
+
+    //     return response()->json([
+    //         'access_token' => $token,
+    //         'token_type' => 'Bearer',
+    //         'user_id' => $user->id,  // Add this line
+    //     ]);
+    // }
 }
