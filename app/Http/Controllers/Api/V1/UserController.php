@@ -70,8 +70,8 @@ class UserController extends Controller
                 'user_id' => $request->user_id,
                 'updated_at' => '2021-09-01 00:00:00',
                 'created_at' => '2021-09-01 00:00:00',
-                'lng' => $request->location,
-                'lat' => $request->location,
+                'lng' => $request->lng,
+                'lat' => $request->lat,
             ];
             try {
                 $spot = $user->spots()->create($newSpotData);
