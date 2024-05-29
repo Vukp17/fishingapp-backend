@@ -83,26 +83,7 @@ class UserController extends Controller
             return response()->json(['error' => 'No image uploaded'], 400);
         }
     }
-    // public function register(Request $request)
-    // {
 
-    //     $validatedData = $request->validate([
-    //         'name' => 'required|max:55',
-    //         'email' => 'email|required|unique:users',
-    //         'password' => 'required|confirmed'
-    //     ]);
-    //      return response()->json($validatedData);
-    //     $validatedData['password'] = Hash::make($request['password']);
-
-    //     $user = User::create($validatedData);
-
-    //     $token = $user->createToken('auth_token')->plainTextToken;
-
-    //     return response()->json([
-    //         'access_token' => $token,
-    //         'token_type' => 'Bearer',
-    //     ], 201);
-    // }
     public function register(Request $request)
     {
         $request['password'] = Hash::make($request['password']);
@@ -144,20 +125,22 @@ class UserController extends Controller
         ]);
     }
 
-public function getImage($filename)
-{
-    $path = storage_path('app/public/images/' . $filename);
+    public function getImage($filename)
+    {
+        $realFilename = substr($filename, strrpos($filename, '-') + 1);
 
-    if (!File::exists($path)) {
-        abort(404);
+        // rest of the code...
+
+        $path = storage_path('app/public/images/' . $realFilename);
+
+        if (!File::exists($path)) {
+            return response()->json(['message' => 'Image not found. Path: ' . $realFilename], 404);
+        }
+        $file = File::get($path);
+        $type = File::mimeType($path);
+
+        $response = response($file, 200)->header("Content-Type", $type);
+
+        return $response;
     }
-
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-
-    return $response;
-}
 }
