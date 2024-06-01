@@ -13,9 +13,9 @@ class SpotController extends Controller
      */
     public function index()
     {
-        //
+        $spots = Spot::all();
+        return response()->json($spots);
     }
-
     /**
      * Show the form for creating a new resource.
      */

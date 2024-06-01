@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 //contooller
 use App\Http\Controllers\Api\V1\SpotController;
 use App\Http\Controllers\Api\V1\UserController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\V1\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +33,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::middleware('auth:sanctum')->group(function () {
         Route::resource('users', UserController::class);
         Route::resource('spots', SpotController::class);
+        /** Get all spots by user */
         Route::get('users/{user}/spots', [UserController::class, 'spots']);
+        /** Save spot  */
         Route::post('users/{user}/spots', [UserController::class, 'storeSpot']);
+        /** Get image */
         Route::get('images/{filename}', [UserController::class, 'getImage']);
+        /**List of all spots  */
+        Route::get('spots', [SpotController::class, 'index']);
     });
 });
