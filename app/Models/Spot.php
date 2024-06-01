@@ -11,4 +11,9 @@ class Spot extends Model
     protected $fillable = [
      'image_id','user_id','title','description','lat','lng','created_at','updated_at','name'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -13,7 +13,10 @@ class SpotController extends Controller
      */
     public function index()
     {
-        $spots = Spot::all();
+        // Eager load the 'user' relationship
+        $spots = Spot::with('user')->get();
+        
+        // Return the spots along with the related user data
         return response()->json($spots);
     }
     /**
