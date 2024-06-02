@@ -17,8 +17,8 @@ class SpotController extends Controller
         // Get the page query parameter
         $page = $request->query('page', 1);
 
-        // Eager load the 'user' relationship
-        $spots = Spot::with('user')->paginate(10, ['*'], 'page', $page);
+        // Eager load the 'user' relationship and sort by latest created_at
+        $spots = Spot::with('user')->orderBy('created_at', 'desc')->paginate(10, ['*'], 'page', $page);
         
         // Return the spots along with the related user data
         return response()->json($spots);

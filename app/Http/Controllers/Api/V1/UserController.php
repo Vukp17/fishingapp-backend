@@ -60,16 +60,16 @@ class UserController extends Controller
 
             $spotData = $request->all();
             $spotData['image_id'] = '/storage/' . $imagePath;
-            // $location = explode(',', $request->location);
-            // $lat = trim($location[0]);
-            // $lng = trim($location[1]);
+            $spotData['image_id'] = str_replace('/', '-', trim($imagePath, '/'));
+
+
             $newSpotData = [
                 'name' => $request->title,
                 'description' => $request->description,
                 'image_id' => $spotData['image_id'],
                 'user_id' => $request->user_id,
-                'updated_at' => '2021-09-01 00:00:00',
-                'created_at' => '2021-09-01 00:00:00',
+                'updated_at' => now(),
+                'created_at' => now(),
                 'lng' => $request->lng,
                 'lat' => $request->lat,
             ];
