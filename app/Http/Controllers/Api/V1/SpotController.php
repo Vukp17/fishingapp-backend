@@ -6,15 +6,19 @@ use App\Http\Requests\StoreSpotRequest;
 use App\Http\Requests\UpdateSpotRequest;
 use App\Models\Spot;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 class SpotController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Get the page query parameter
+        $page = $request->query('page', 1);
+
         // Eager load the 'user' relationship
-        $spots = Spot::with('user')->get();
+        $spots = Spot::with('user')->paginate(10, ['*'], 'page', $page);
         
         // Return the spots along with the related user data
         return response()->json($spots);
