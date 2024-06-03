@@ -42,7 +42,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::post('users/{user}/spots', [UserController::class, 'storeSpot']);
         /** Get image */
         Route::get('images/{filename}', [UserController::class, 'getImage']);
-        /**List of all spots  */
+        /**List of all spots   with pagination */
         Route::get('spots', [SpotController::class, 'index']);
+
     });
 });

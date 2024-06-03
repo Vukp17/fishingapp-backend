@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class SpotController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource. with pagination
      */
     public function index(Request $request)
     {
@@ -18,8 +18,25 @@ class SpotController extends Controller
         $page = $request->query('page', 1);
 
         // Eager load the 'user' relationship and sort by latest created_at
-        $spots = Spot::with('user')->orderBy('created_at', 'desc')->paginate(10, ['*'], 'page', $page);
+        $spots = Spot::with('user')->orderBy('created_at', 'desc');
+
+        // Check if the 'all' query parameter is present
+        if ($request->query('all')) {
+            // Get all spots without pagination
+            $spots = $spots->get();
+        } else {
+            // Paginate the spots with 10 spots per page
+            $spots = $spots->paginate(10, ['*'], 'page', $page);
+        }
         
+        // Return the spots along with the related user data
+        return response()->json($spots);
+    }
+    public function getAllSpots()
+    {
+        // Eager load the 'user' relationship and sort by latest created_at
+        $spots = Spot::with('user');
+
         // Return the spots along with the related user data
         return response()->json($spots);
     }
