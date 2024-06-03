@@ -27,9 +27,12 @@ Route::middleware('auth:api')->group(function () {
 
 //api/v1/users
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function () {
+    //Auth
     Route::post('register', [UserController::class, 'register']);
     Route::post('login', [UserController::class, 'login']);
     Route::post('google-login', [AuthController::class, 'googleLogin']);
+
+    /**Routes protected with aut token */
     Route::middleware('auth:sanctum')->group(function () {
         Route::resource('users', UserController::class);
         Route::resource('spots', SpotController::class);
