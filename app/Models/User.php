@@ -18,5 +18,10 @@ class User extends Authenticatable // Use Authenticatable instead of Model
     public function spots() // Keep any other relationships
     {
         return $this->hasMany(Spot::class);
+        
+    }
+    public function languages() // Define the relationship with the Language model
+    {
+        return $this->belongsTo(Language::class);
     }
 }

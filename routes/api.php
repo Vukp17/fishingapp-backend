@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\SpotController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\AuthController;
+use Google\Service\Adsense\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::get('images/{filename}', [UserController::class, 'getImage']);
         /**List of all spots   with pagination */
         Route::get('spots', [SpotController::class, 'index']);
-
+       /**Update user */
+       Route::put('users/{user}', [UserController::class, 'update']);
+ 
     });
 });
