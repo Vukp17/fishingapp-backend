@@ -16,8 +16,21 @@ class LanguageFactory extends Factory
      */
     public function definition(): array
     {
+        $languages = [
+            'en' => 'English',
+            'sr' => 'Serbian',
+            'cr' => 'Croation',
+            'sl' => 'Slovenian',
+            // Add more languages as needed
+        ];
+
+        $languageCode = $this->faker->randomElement(array_keys($languages));
+        $languageName = $languages[$languageCode];
+
         return [
-            //
+            'id' => $languageCode,
+            'name' => $languageName,
         ];
     }
+  
 }

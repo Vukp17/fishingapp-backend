@@ -23,12 +23,22 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $languages = [
+            'en' => 'English',
+            'sr' => 'Serbian',
+            'cr' => 'Croation',
+            'sl' => 'Slovenian',
+            // Add more languages as needed
+        ];
+        $languageCode = $this->faker->randomElement(array_keys($languages));
+
         return [
             'username' => fake()->userName(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'language_id' => $languageCode
         ];
     }
 
