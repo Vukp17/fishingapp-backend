@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -48,21 +49,24 @@ class UserController extends Controller
     }
     public function storeSpot(Request $request, User $user)
     {
-        // $request->validate([
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //     // validate other input fields...
-        // ]);
-        // var_dump($request->all());
+        Log::info('Request data: ', $request->all());
+        $image = $request->file('image');
+
+        Log::info('Uploaded image details: ', [
+            'original_name' => $image->getClientOriginalName(),
+            'mime_type' => $image->getClientMimeType(),
+            'size' => $image->getSize(),
+        ]);
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
+
+    
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = $image->storeAs('images', $imageName, 'public');
-
+    
             $spotData = $request->all();
             $spotData['image_id'] = '/storage/' . $imagePath;
             $spotData['image_id'] = str_replace('/', '-', trim($imagePath, '/'));
-
-
+    
             $newSpotData = [
                 'name' => $request->title,
                 'description' => $request->description,
@@ -73,17 +77,18 @@ class UserController extends Controller
                 'lng' => $request->lng,
                 'lat' => $request->lat,
             ];
+    
             try {
                 $spot = $user->spots()->create($newSpotData);
+                return response()->json($spot, 201);
             } catch (\Exception $e) {
                 return response()->json(['error' => $e->getMessage()], 400);
             }
-            return response()->json($spot, 201);
         } else {
             return response()->json(['error' => 'No image uploaded'], 400);
         }
     }
-
+    
     public function register(Request $request)
     {
         $request['password'] = Hash::make($request['password']);

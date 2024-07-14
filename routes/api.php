@@ -46,7 +46,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         /**List of all spots   with pagination */
         Route::get('spots', [SpotController::class, 'index']);
        /**Update user */
-       Route::put('users/{user}', [UserController::class, 'update']);
- 
+
+       /** Logout */
+       Route::post('logout', [AuthController::class, 'logout']);
+
     });
+
+    Route::put('users/{user}', [UserController::class, 'update']);
+
 });
