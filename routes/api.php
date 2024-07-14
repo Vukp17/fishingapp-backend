@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\SpotController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\LocationController;
 use Google\Service\Adsense\Row;
 
 /*
@@ -45,13 +46,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         Route::get('images/{filename}', [UserController::class, 'getImage']);
         /**List of all spots   with pagination */
         Route::get('spots', [SpotController::class, 'index']);
-       /**Update user */
+        /**Update user */
 
-       /** Logout */
-       Route::post('logout', [AuthController::class, 'logout']);
+        /** Logout */
+        Route::post('logout', [AuthController::class, 'logout']);
 
+        /** Get Locations */
+        Route::get('locations', [LocationController::class, 'index']);
+
+        /** Update fav */
+        Route::put('locations/{location}', [LocationController::class, 'updateFavorite']);
     });
 
     Route::put('users/{user}', [UserController::class, 'update']);
-
 });
