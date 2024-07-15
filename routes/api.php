@@ -56,6 +56,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
 
         /** Update fav */
         Route::put('locations/{location}', [LocationController::class, 'updateFavorite']);
+
+        /** Get fav */
+        Route::get('locations/favorite', [LocationController::class, 'favorite']);
     });
 
     Route::put('users/{user}', [UserController::class, 'update']);

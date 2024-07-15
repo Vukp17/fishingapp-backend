@@ -81,4 +81,9 @@ class LocationController extends Controller
     
         return response()->json(['message' => 'Favorite status updated successfully']);
     }
+
+    public function favorite() {
+        $location = Location::where('is_favorite', true)->first();
+        return response()->json($location);
+    }
 }

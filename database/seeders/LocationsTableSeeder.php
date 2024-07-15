@@ -1,34 +1,494 @@
 <?php
-    namespace Database\Seeders;
+namespace Database\Seeders;
 
-    use Illuminate\Database\Seeder;
-    use App\Models\Location;
-    
-    class LocationsTableSeeder extends Seeder
+use Illuminate\Database\Seeder;
+use App\Models\Location;
+
+class LocationsTableSeeder extends Seeder
+{
+    public function run()
     {
-        public function run()
-        {
-            $locations = [
-                [
-                    'name' => 'Lake Bled',
-                    'description' => 'Famous lake with an island and castle.',
-                    'latitude' => 46.3630,
-                    'longitude' => 14.0900,
-                    'picture_url' => 'https://example.com/lake_bled.jpg',
-                ],
-                [
-                    'name' => 'Lake Bohinj',
-                    'description' => 'Largest permanent lake in Slovenia.',
-                    'latitude' => 46.2826,
-                    'longitude' => 13.8669,
-                    'picture_url' => 'https://example.com/lake_bohinj.jpg',
-                ],
-                // Add more lakes as needed
-            ];
-    
-            foreach ($locations as $location) {
-                Location::create($location);
-            }
+        $locations = [
+            [
+                'name' => 'Lake Bled',
+                'description' => 'Famous lake with an island and castle.',
+                'latitude' => 46.3630,
+                'longitude' => 14.0900,
+                'picture_url' => 'https://example.com/lake_bled.jpg',
+            ],
+            [
+                'name' => 'Lake Bohinj',
+                'description' => 'Largest permanent lake in Slovenia.',
+                'latitude' => 46.2826,
+                'longitude' => 13.8669,
+                'picture_url' => 'https://example.com/lake_bohinj.jpg',
+            ],
+            [
+                'name' => 'Lake Cerknica',
+                'description' => 'Seasonal lake in southern Slovenia.',
+                'latitude' => 45.7971,
+                'longitude' => 14.3608,
+                'picture_url' => 'https://example.com/lake_cerknica.jpg',
+            ],
+            [
+                'name' => 'Sava River',
+                'description' => 'Major river flowing through Slovenia.',
+                'latitude' => 46.2300,
+                'longitude' => 14.0500,
+                'picture_url' => 'https://example.com/sava_river.jpg',
+            ],
+            [
+                'name' => 'Ljubljanica River',
+                'description' => 'River flowing through Ljubljana, the capital of Slovenia.',
+                'latitude' => 46.0500,
+                'longitude' => 14.5067,
+                'picture_url' => 'https://example.com/ljubljanica_river.jpg',
+            ],
+            [
+                'name' => 'Triglav National Park',
+                'description' => 'Slovenia\'s only national park, home to Mount Triglav.',
+                'latitude' => 46.3794,
+                'longitude' => 13.8447,
+                'picture_url' => 'https://example.com/triglav_national_park.jpg',
+            ],
+            [
+                'name' => 'Postojna Cave',
+                'description' => 'One of the longest cave systems in Slovenia.',
+                'latitude' => 45.7819,
+                'longitude' => 14.2035,
+                'picture_url' => 'https://example.com/postojna_cave.jpg',
+            ],
+            [
+                'name' => 'Predjama Castle',
+                'description' => 'Castle built within a cave mouth in southwestern Slovenia.',
+                'latitude' => 45.8157,
+                'longitude' => 14.1260,
+                'picture_url' => 'https://example.com/predjama_castle.jpg',
+            ],
+            [
+                'name' => 'Lake Cerknica',
+                'description' => 'Seasonal lake in southern Slovenia.',
+                'latitude' => 45.7971,
+                'longitude' => 14.3608,
+                'picture_url' => 'https://example.com/lake_cerknica.jpg',
+            ],
+            [
+                'name' => 'Maribor',
+                'description' => 'Second-largest city in Slovenia, known for its wine production.',
+                'latitude' => 46.5547,
+                'longitude' => 15.6459,
+                'picture_url' => 'https://example.com/maribor.jpg',
+            ],
+            [
+                'name' => 'Piran',
+                'description' => 'Picturesque coastal town on the Adriatic Sea.',
+                'latitude' => 45.5272,
+                'longitude' => 13.5684,
+                'picture_url' => 'https://example.com/piran.jpg',
+            ],
+            [
+                'name' => 'Kranjska Gora',
+                'description' => 'Alpine resort town near the Austrian border.',
+                'latitude' => 46.4846,
+                'longitude' => 13.7894,
+                'picture_url' => 'https://example.com/kranjska_gora.jpg',
+            ],
+            [
+                'name' => 'Skocjan Caves',
+                'description' => 'UNESCO World Heritage site featuring underground caves.',
+                'latitude' => 45.6740,
+                'longitude' => 13.9143,
+                'picture_url' => 'https://example.com/skocjan_caves.jpg',
+            ],
+            [
+                'name' => 'Kobarid',
+                'description' => 'Town in the Upper Soča Valley, known for its WWI history.',
+                'latitude' => 46.2462,
+                'longitude' => 13.5793,
+                'picture_url' => 'https://example.com/kobarid.jpg',
+            ],
+            [
+                'name' => 'Lake Jasna',
+                'description' => 'Artificial lake near Kranjska Gora, popular for swimming.',
+                'latitude' => 46.4878,
+                'longitude' => 13.7837,
+                'picture_url' => 'https://example.com/lake_jasna.jpg',
+            ],
+            [
+                'name' => 'Ptuj',
+                'description' => 'Oldest town in Slovenia, located on the Drava River.',
+                'latitude' => 46.4196,
+                'longitude' => 15.8694,
+                'picture_url' => 'https://example.com/ptuj.jpg',
+            ],
+            [
+                'name' => 'Slovenian Coast',
+                'description' => 'Coastline along the Adriatic Sea, dotted with charming towns.',
+                'latitude' => 45.5000,
+                'longitude' => 13.7333,
+                'picture_url' => 'https://example.com/slovenian_coast.jpg',
+            ],
+            [
+                'name' => 'Logar Valley',
+                'description' => 'Glacial valley in the Kamnik Alps, popular for hiking.',
+                'latitude' => 46.3808,
+                'longitude' => 14.5653,
+                'picture_url' => 'https://example.com/logar_valley.jpg',
+            ],
+            [
+                'name' => 'Vintgar Gorge',
+                'description' => 'Narrow gorge near Bled, with a walking path along the Radovna River.',
+                'latitude' => 46.3944,
+                'longitude' => 14.0947,
+                'picture_url' => 'https://example.com/vintgar_gorge.jpg',
+            ],
+            [
+                'name' => 'Velika Planina',
+                'description' => 'Alpine pasture plateau in the Kamnik Alps.',
+                'latitude' => 46.2833,
+                'longitude' => 14.6167,
+                'picture_url' => 'https://example.com/velika_planina.jpg',
+            ],
+            [
+                'name' => 'Kozjak Waterfall',
+                'description' => 'Scenic waterfall near Kobarid in the Soča Valley.',
+                'latitude' => 46.2363,
+                'longitude' => 13.5869,
+                'picture_url' => 'https://example.com/kozjak_waterfall.jpg',
+            ],
+            [
+                'name' => 'Lake Kreda',
+                'description' => 'Artificial lake near Slovenske Konjice.',
+                'latitude' => 46.3386,
+                'longitude' => 15.5269,
+                'picture_url' => 'https://example.com/lake_kreda.jpg',
+            ],
+            [
+                'name' => 'Savica Waterfall',
+                'description' => 'Waterfall in Triglav National Park, originating from Lake Bohinj.',
+                'latitude' => 46.2731,
+                'longitude' => 13.8869,
+                'picture_url' => 'https://example.com/savica_waterfall.jpg',
+            ],
+            [
+                'name' => 'Bovec',
+                'description' => 'Town in the Upper Soča Valley, popular for outdoor activities.',
+                'latitude' => 46.3378,
+                'longitude' => 13.5523,
+                'picture_url' => 'https://example.com/bovec.jpg',
+            ],
+            [
+                'name' => 'Idrija',
+                'description' => 'Town known for mercury mining and lace-making traditions.',
+                'latitude' => 46.0023,
+                'longitude' => 14.0272,
+                'picture_url' => 'https://example.com/idrija.jpg',
+            ],
+            [
+                'name' => 'Kocevje',
+                'description' => 'Forest-covered region with diverse wildlife.',
+                'latitude' => 45.6436,
+                'longitude' => 14.8644,
+                'picture_url' => 'https://example.com/kocevje.jpg',
+            ],
+            [
+                'name' => 'Radovljica',
+                'description' => 'Medieval town near Lake Bled, known for its beekeeping tradition.',
+                'latitude' => 46.3442,
+                'longitude' => 14.1749,
+                'picture_url' => 'https://example.com/radovljica.jpg',
+            ],
+            [
+                'name' => 'Celje',
+                'description' => 'Historic town in eastern Slovenia, known for Celje Castle.',
+                'latitude' => 46.2379,
+                'longitude' => 15.2675,
+                'picture_url' => 'https://example.com/celje.jpg',
+            ],
+            [
+                'name' => 'Goriska Brda',
+                'description' => 'Wine-growing region in western Slovenia, often called "Slovenian Tuscany".',
+                'latitude' => 45.9975,
+                'longitude' => 13.5237,
+                'picture_url' => 'https://example.com/goriska_brda.jpg',
+            ],
+            [
+                'name' => 'Kamnik',
+                'description' => 'Historic town at the foothills of the Kamnik Alps.',
+                'latitude' => 46.2253,
+                'longitude' => 14.6091,
+                'picture_url' => 'https://example.com/kamnik.jpg',
+            ],
+            [
+                'name' => 'Novo Mesto',
+                'description' => 'Town on the Krka River, known for its medieval heritage.',
+                'latitude' => 45.8031,
+                'longitude' => 15.1694,
+                'picture_url' => 'https://example.com/novo_mesto.jpg',
+            ],
+            [
+                'name' => 'Vrsic Pass',
+                'description' => 'Mountain pass in the Julian Alps, offering scenic views.',
+                'latitude' => 46.4253,
+                'longitude' => 13.7322,
+                'picture_url' => 'https://example.com/vrsic_pass.jpg',
+            ],
+            [
+                'name' => 'Bled Castle',
+                'description' => 'Medieval castle overlooking Lake Bled.',
+                'latitude' => 46.3692,
+                'longitude' => 14.1039,
+                'picture_url' => 'https://example.com/bled_castle.jpg',
+            ],
+            [
+                'name' => 'Solcava Panoramic Road',
+                'description' => 'Scenic mountain road in the Solčava region.',
+                'latitude' => 46.4015,
+                'longitude' => 14.6930,
+                'picture_url' => 'https://example.com/solcava_panoramic_road.jpg',
+            ],
+            [
+                'name' => 'Goriska Museum',
+                'description' => 'Museum showcasing local history and culture.',
+                'latitude' => 45.9526,
+                'longitude' => 13.6437,
+                'picture_url' => 'https://example.com/goriska_museum.jpg',
+            ],
+            [
+                'name' => 'Logarska Dolina',
+                'description' => 'Valley in the Kamnik Alps, known for hiking and skiing.',
+                'latitude' => 46.3783,
+                'longitude' => 14.5789,
+                'picture_url' => 'https://example.com/logarska_dolina.jpg',
+            ],
+            [
+                'name' => 'Tolmin Gorges',
+                'description' => 'Gorges and natural attractions near Tolmin.',
+                'latitude' => 46.1817,
+                'longitude' => 13.7364,
+                'picture_url' => 'https://example.com/tolmin_gorges.jpg',
+            ],
+            [
+                'name' => 'Mozirski Gaj',
+                'description' => 'Botanical garden and arboretum near Mozirje.',
+                'latitude' => 46.3386,
+                'longitude' => 14.9497,
+                'picture_url' => 'https://example.com/mozirski_gaj.jpg',
+            ],
+            [
+                'name' => 'Brda Wine Region',
+                'description' => 'Wine-growing region known for its vineyards and wine cellars.',
+                'latitude' => 45.9897,
+                'longitude' => 13.5231,
+                'picture_url' => 'https://example.com/brda_wine_region.jpg',
+            ],
+            [
+                'name' => 'Kocevska Reka',
+                'description' => 'River in the Kočevje region, known for its biodiversity.',
+                'latitude' => 45.6524,
+                'longitude' => 14.8542,
+                'picture_url' => 'https://example.com/kocevska_reka.jpg',
+            ],
+            [
+                'name' => 'Vipava Valley',
+                'description' => 'Valley known for its wine production and picturesque landscapes.',
+                'latitude' => 45.8417,
+                'longitude' => 13.9541,
+                'picture_url' => 'https://example.com/vipava_valley.jpg',
+            ],
+            [
+                'name' => 'Planica Ski Jump',
+                'description' => 'Famous ski jumping venue in the Julian Alps.',
+                'latitude' => 46.4791,
+                'longitude' => 13.7386,
+                'picture_url' => 'https://example.com/planica_ski_jump.jpg',
+            ],
+            [
+                'name' => 'Kozjak Mountain',
+                'description' => 'Mountain range in the Upper Soča Valley.',
+                'latitude' => 46.2204,
+                'longitude' => 13.5767,
+                'picture_url' => 'https://example.com/kozjak_mountain.jpg',
+            ],
+            [
+                'name' => 'Soca River',
+                'description' => 'River known for its emerald-green waters and outdoor activities.',
+                'latitude' => 46.3341,
+                'longitude' => 13.6937,
+                'picture_url' => 'https://example.com/soca_river.jpg',
+            ],
+            [
+                'name' => 'Bovec Valley',
+                'description' => 'Scenic valley in the Julian Alps, popular for adventure sports.',
+                'latitude' => 46.3297,
+                'longitude' => 13.5486,
+                'picture_url' => 'https://example.com/bovec_valley.jpg',
+            ],
+            [
+                'name' => 'Pohorje',
+                'description' => 'Mountain range near Maribor, known for skiing and hiking.',
+                'latitude' => 46.4975,
+                'longitude' => 15.5194,
+                'picture_url' => 'https://example.com/pohorje.jpg',
+            ],
+            [
+                'name' => 'Kamnik-Savinja Alps',
+                'description' => 'Mountain range in northern Slovenia, popular for hiking and mountaineering.',
+                'latitude' => 46.3333,
+                'longitude' => 14.6000,
+                'picture_url' => 'https://example.com/kamnik_savinja_alps.jpg',
+            ],
+            [
+                'name' => 'Piran Salt Pans',
+                'description' => 'Salt pans near Piran, used for salt production.',
+                'latitude' => 45.5286,
+                'longitude' => 13.5706,
+                'picture_url' => 'https://example.com/piran_salt_pans.jpg',
+            ],
+            [
+                'name' => 'Stari Vrh Ski Resort',
+                'description' => 'Ski resort in the Škofja Loka Hills.',
+                'latitude' => 46.1136,
+                'longitude' => 14.1322,
+                'picture_url' => 'https://example.com/stari_vrh_ski_resort.jpg',
+            ],
+            [
+                'name' => 'Strunjan Nature Reserve',
+                'description' => 'Coastal nature reserve near Piran, known for its cliffs and salt pans.',
+                'latitude' => 45.5281,
+                'longitude' => 13.6047,
+                'picture_url' => 'https://example.com/strunjan_nature_reserve.jpg',
+            ],
+            [
+                'name' => 'Bohinjska Bistrica',
+                'description' => 'Town near Lake Bohinj, known for its natural hot springs.',
+                'latitude' => 46.2694,
+                'longitude' => 13.9511,
+                'picture_url' => 'https://example.com/bohinjska_bistrica.jpg',
+            ],
+            [
+                'name' => 'Koritnica Gorge',
+                'description' => 'Gorge near Bovec, known for its natural beauty and hiking trails.',
+                'latitude' => 46.3344,
+                'longitude' => 13.5651,
+                'picture_url' => 'https://example.com/koritnica_gorge.jpg',
+            ],
+            [
+                'name' => 'Krvavec Ski Resort',
+                'description' => 'Popular ski resort near Ljubljana.',
+                'latitude' => 46.3000,
+                'longitude' => 14.5167,
+                'picture_url' => 'https://example.com/krvavec_ski_resort.jpg',
+            ],
+            [
+                'name' => 'Lake Medvode',
+                'description' => 'Reservoir lake near Medvode, used for recreation and fishing.',
+                'latitude' => 46.1339,
+                'longitude' => 14.4175,
+                'picture_url' => 'https://example.com/lake_medvode.jpg',
+            ],
+            [
+                'name' => 'Golte Ski Resort',
+                'description' => 'Ski resort in the Savinja Alps, known for its panoramic views.',
+                'latitude' => 46.3522,
+                'longitude' => 14.8103,
+                'picture_url' => 'https://example.com/golte_ski_resort.jpg',
+            ],
+            [
+                'name' => 'Dobrna',
+                'description' => 'Spa town in northeastern Slovenia, known for its thermal waters.',
+                'latitude' => 46.3367,
+                'longitude' => 15.2250,
+                'picture_url' => 'https://example.com/dobrna.jpg',
+            ],
+            [
+                'name' => 'Nanos Plateau',
+                'description' => 'Karst plateau near Postojna, known for its hiking trails and viewpoints.',
+                'latitude' => 45.8144,
+                'longitude' => 14.0411,
+                'picture_url' => 'https://example.com/nanos_plateau.jpg',
+            ],
+            [
+                'name' => 'Radenci',
+                'description' => 'Spa town in northeastern Slovenia, known for its mineral water.',
+                'latitude' => 46.6414,
+                'longitude' => 16.0447,
+                'picture_url' => 'https://example.com/radenci.jpg',
+            ],
+            [
+                'name' => 'Lipica',
+                'description' => 'Famous for Lipizzaner horses and the Lipica Stud Farm.',
+                'latitude' => 45.6756,
+                'longitude' => 13.8583,
+                'picture_url' => 'https://example.com/lipica.jpg',
+            ],
+            [
+                'name' => 'Rogaska Slatina',
+                'description' => 'Spa town known for its mineral water and crystal glass production.',
+                'latitude' => 46.2378,
+                'longitude' => 15.6400,
+                'picture_url' => 'https://example.com/rogaska_slatina.jpg',
+            ],
+            [
+                'name' => 'Dolenjske Toplice',
+                'description' => 'Spa town in southeastern Slovenia, known for its thermal springs.',
+                'latitude' => 45.7897,
+                'longitude' => 15.0597,
+                'picture_url' => 'https://example.com/dolenjske_toplice.jpg',
+            ],
+            [
+                'name' => 'Podcetrtek',
+                'description' => 'Town in eastern Slovenia, known for its thermal spa resorts.',
+                'latitude' => 46.1564,
+                'longitude' => 15.5914,
+                'picture_url' => 'https://example.com/podcetrtek.jpg',
+            ],
+            [
+                'name' => 'Zrece',
+                'description' => 'Town in northeastern Slovenia, known for its ski resort and thermal spa.',
+                'latitude' => 46.3839,
+                'longitude' => 15.3869,
+                'picture_url' => 'https://example.com/zrece.jpg',
+            ],
+            [
+                'name' => 'Divača',
+                'description' => 'Town near Postojna, gateway to the Škocjan Caves.',
+                'latitude' => 45.6792,
+                'longitude' => 13.9650,
+                'picture_url' => 'https://example.com/divaca.jpg',
+            ],
+            [
+                'name' => 'Izola',
+                'description' => 'Historic coastal town on the Adriatic Sea.',
+                'latitude' => 45.5392,
+                'longitude' => 13.6624,
+                'picture_url' => 'https://example.com/izola.jpg',
+            ],
+            [
+                'name' => 'Cerkno',
+                'description' => 'Town near the Cerkno Hills, known for skiing and cultural events.',
+                'latitude' => 46.1253,
+                'longitude' => 13.9867,
+                'picture_url' => 'https://example.com/cerkno.jpg',
+            ],
+            [
+                'name' => 'Kranj',
+                'description' => 'Historic town near the Sava River, known for its medieval architecture.',
+                'latitude' => 46.2418,
+                'longitude' => 14.3559,
+                'picture_url' => 'https://example.com/kranj.jpg',
+            ],
+            [
+                'name' => 'Lasko',
+                'description' => 'Town in eastern Slovenia, known for its thermal springs and beer brewery.',
+                'latitude' => 46.1547,
+                'longitude' => 15.2392,
+                'picture_url' => 'https://example.com/lasko.jpg',
+            ],
+        ];
+
+        foreach ($locations as $location) {
+            Location::create($location);
         }
     }
-    
+}
