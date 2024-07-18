@@ -36,7 +36,9 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        //
+        return $user->id === $model->id
+            ? Response::allow()
+            : Response::deny('You do not own this user.');
     }
 
     /**

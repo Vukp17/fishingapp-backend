@@ -33,10 +33,42 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->update($request->all());
-        return response()->json($user);
+        try {
+            // Authentication check: Ensure the request is authenticated (middleware should handle this)
+            $currentUser = $request->user(); // Get the authenticated user
+            $userToUpdate = User::find($id);
+    
+            if (!$userToUpdate) {
+                return response()->json(['error' => 'User not found'], 404);
+            }
+    
+            // Authorization logic: Ensure the user has permission to update the user data
+            if ($currentUser->id !== $userToUpdate->id && !$currentUser->isAdmin()) {
+                return response()->json(['error' => 'Unauthorized'], 403);
+            }
+    
+            // Update user with request data
+            $userToUpdate->username = $request->input('username', $userToUpdate->username);
+            $userToUpdate->email = $request->input('email', $userToUpdate->email);
+            $userToUpdate->language_id = $request->input('language_id', $userToUpdate->language_id);
+    
+            // Hash the password if it's included in the request
+            if ($request->has('password') && !empty($request->input('password'))) {
+                $userToUpdate->password = Hash::make($request->input('password'));
+            }
+    
+            $userToUpdate->save();
+    
+            return response()->json([
+                'message' => 'User updated successfully',
+                'user' => $userToUpdate
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
+    
+
 
     public function destroy($id)
     {
@@ -59,14 +91,14 @@ class UserController extends Controller
         ]);
         if ($request->hasFile('image')) {
 
-    
+
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = $image->storeAs('images', $imageName, 'public');
-    
+
             $spotData = $request->all();
             $spotData['image_id'] = '/storage/' . $imagePath;
             $spotData['image_id'] = str_replace('/', '-', trim($imagePath, '/'));
-    
+
             $newSpotData = [
                 'name' => $request->title,
                 'description' => $request->description,
@@ -77,7 +109,7 @@ class UserController extends Controller
                 'lng' => $request->lng,
                 'lat' => $request->lat,
             ];
-    
+
             try {
                 $spot = $user->spots()->create($newSpotData);
                 return response()->json($spot, 201);
@@ -88,7 +120,7 @@ class UserController extends Controller
             return response()->json(['error' => 'No image uploaded'], 400);
         }
     }
-    
+
     public function register(Request $request)
     {
         $request['password'] = Hash::make($request['password']);

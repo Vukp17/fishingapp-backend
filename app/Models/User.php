@@ -12,7 +12,7 @@ class User extends Authenticatable // Use Authenticatable instead of Model
     use HasFactory, HasApiTokens, Notifiable; // Include Notifiable for user-related notifications
 
     protected $fillable = [
-        'username', 'email', 'password', // Attributes you want to be mass assignable
+        'username', 'email', 'password','language_id' // Attributes you want to be mass assignable
     ];
 
     public function spots() // Keep any other relationships
